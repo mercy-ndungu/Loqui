@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#10B981" />
+    <title>Loqui — Offline</title>
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: Inter, system-ui, sans-serif;
+        background: #f9fafb;
+        color: #111827;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        text-align: center;
+      }
+      .card {
+        background: #fff;
+        border-radius: 1rem;
+        padding: 2.5rem;
+        max-width: 24rem;
+        box-shadow: 0 4px 24px rgba(0,0,0,.06);
+      }
+      h1 {
+        font-family: "DM Serif Display", serif;
+        color: #10b981;
+        font-size: 2rem;
+        margin-bottom: .75rem;
+      }
+      p { color: #6b7280; line-height: 1.6; font-size: .95rem; }
+      button {
+        margin-top: 1.5rem;
+        background: #10b981;
+        color: #fff;
+        border: none;
+        border-radius: .5rem;
+        padding: .75rem 1.5rem;
+        font-size: .875rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      button:hover { background: #059669; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Loqui</h1>
+      <p>You&apos;re offline. Cached pages are still available — reconnect to sync new data.</p>
+      <button onclick="location.reload()">Try again</button>
+    </div>
+  </body>
+</html>
