@@ -55,10 +55,13 @@ Click **Save Changes** → Render redeploys (5–10 min first time).
 
 | Setting | Value |
 |---------|--------|
-| Root Directory | `backend` |
+| Root Directory | `backend` *(recommended)* — or leave blank and use the repo-root `Dockerfile` |
+| Dockerfile Path | `./Dockerfile` |
 | Environment | Docker |
 | Instance Type | Free |
 | Health Check Path | `/health` |
+
+If the build fails with **`requirements.txt: not found`**, Render is using the repo root as build context. Either set **Root Directory** to `backend`, or push the latest repo-root `Dockerfile` (it copies from `backend/`).
 
 ---
 

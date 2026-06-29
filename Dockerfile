@@ -1,14 +1,16 @@
+# Monorepo build: use when Render root directory is the repo root (not `backend/`).
+# Prefer Render → Settings → Root Directory = `backend` and backend/Dockerfile instead.
 FROM python:3.12-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-COPY requirements.txt .
+COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt \
     && python -m spacy download en_core_web_sm
 
-COPY . .
+COPY backend/ .
 
 RUN python - <<'PY'
 import nltk
