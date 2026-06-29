@@ -1,16 +1,16 @@
 import { type FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { login, signup } from "@/services/auth";
 import { getMe } from "@/services/users";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 import { useAuth } from "@/hooks/useAuth";
-import { sanitizeInput } from "../utils/sanitize";
+import { getApiErrorMessage } from "@/utils/apiErrors";
+import { sanitizeInput } from "@/utils/sanitize";
 import {
   getPasswordErrors,
   isValidEmail,
   passwordMeetsRequirements,
-} from "../utils/validation";
+} from "@/utils/validation";
 
 type Tab = "login" | "signup";
 
@@ -53,10 +53,15 @@ export default function Login({ onLoginSuccess }: LoginProps) {
   const [fieldErrors, setFieldErrors] = useState<string[]>([]);
 
   const handleAuthSuccess = async () => {
-    const user = await getMe();
-    loginSuccess(user);
-    onLoginSuccess?.();
-    navigate("/dashboard", { replace: true });
+    try {
+      const user = await getMe();
+      loginSuccess(user);
+      onLoginSuccess?.();
+      navigate("/dashboard", { replace: true });
+    } catch (err) {
+      setError(getApiErrorMessage(err, "Logged in but could not load your profile. Try again."));
+      throw err;
+    }
   };
 
   const handleLogin = async (e: FormEvent) => {
@@ -76,10 +81,7 @@ export default function Login({ onLoginSuccess }: LoginProps) {
       await login(email, loginPassword);
       await handleAuthSuccess();
     } catch (err) {
-      setError("Login failed");
-      if (axios.isAxiosError(err)) {
-        console.error("Login error", err.response?.status);
-      }
+      setError(getApiErrorMessage(err, "Login failed"));
     } finally {
       setLoading(false);
     }
@@ -113,8 +115,8 @@ export default function Login({ onLoginSuccess }: LoginProps) {
     try {
       await signup(email, signupPassword, name);
       await handleAuthSuccess();
-    } catch {
-      setError("Email already exists");
+    } catch (err) {
+      setError(getApiErrorMessage(err, "Signup failed"));
     } finally {
       setLoading(false);
     }

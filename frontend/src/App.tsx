@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
 import { AuthProvider } from "@/context/AuthProvider";
 import { useAuth } from "@/hooks/useAuth";
 import ChallengesHub from "./pages/ChallengesHub";
@@ -14,7 +15,13 @@ import UploadPresentation from "./pages/UploadPresentation";
 
 function PublicLoginRoute() {
   const { isAuthenticated, isLoading } = useAuth();
-  if (isLoading) return null;
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <LoadingSpinner size="lg" />
+      </div>
+    );
+  }
   if (isAuthenticated) return <Navigate to="/dashboard" replace />;
   return <Login />;
 }

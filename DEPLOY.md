@@ -49,6 +49,15 @@ Paste values from your local `backend/.env` where noted.
 | `COOKIE_SECURE` | `true` |
 | `CORS_ORIGINS` | `https://YOUR-VERCEL-APP.vercel.app` *(update after Step 4)* |
 
+**Vercel frontend environment variables (Project → Settings → Environment Variables):**
+
+| Key | Value | Notes |
+|-----|--------|--------|
+| `VITE_API_URL` | `/api` | **Required.** Same-origin proxy — do NOT use the Render URL here |
+| `VITE_BACKEND_URL` | *(omit on Vercel)* | Local dev only — Vite proxy target |
+
+Do **not** set `VITE_SUPABASE_URL` or `VITE_SUPABASE_ANON_KEY` — auth uses the FastAPI backend, not the Supabase JS client.
+
 Click **Save Changes** → Render redeploys (5–10 min first time).
 
 **Render service settings (if not set yet):**

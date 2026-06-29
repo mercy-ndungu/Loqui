@@ -3,18 +3,32 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
-import { initSecurity } from "./utils/security";
+import ErrorBoundary from "@/components/common/ErrorBoundary";
+import { initSecurity } from "@/utils/security";
 import { registerServiceWorker } from "@/lib/serviceWorker";
 
 async function bootstrap() {
-  await initSecurity();
+  try {
+    await initSecurity();
+  } catch (err) {
+    console.error("[Loqui] Security init failed (app will still load):", err);
+  }
+
   registerServiceWorker();
 
-  createRoot(document.getElementById("root")!).render(
+  const rootEl = document.getElementById("root");
+  if (!rootEl) {
+    console.error("[Loqui] #root element not found");
+    return;
+  }
+
+  createRoot(rootEl).render(
     <StrictMode>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <ErrorBoundary>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ErrorBoundary>
     </StrictMode>,
   );
 }

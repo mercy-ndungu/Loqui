@@ -21,6 +21,9 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
+    if (import.meta.env.DEV && error.response) {
+      console.debug("[Loqui API]", error.response.status, error.config?.url, error.response.data);
+    }
     if (error.response?.status === 401) {
       window.dispatchEvent(new CustomEvent("loqui:unauthorized"));
     }

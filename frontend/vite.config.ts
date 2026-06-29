@@ -4,7 +4,7 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { VitePWA } from "vite-plugin-pwa";
 
-const API_URL = process.env.VITE_API_URL ?? "http://localhost:8000";
+const BACKEND_URL = process.env.VITE_BACKEND_URL ?? "http://localhost:8000";
 
 export default defineConfig({
   resolve: {
@@ -45,7 +45,7 @@ export default defineConfig({
           },
           {
             urlPattern: new RegExp(
-              `^${API_URL.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}/(users|presentations|recordings|feedback)(/|$)`,
+              `^${BACKEND_URL.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}/(users|presentations|recordings|feedback|auth|challenges)(/|$)`,
               "i",
             ),
             handler: "NetworkFirst",
@@ -76,7 +76,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       "/api": {
-        target: API_URL,
+        target: BACKEND_URL,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },

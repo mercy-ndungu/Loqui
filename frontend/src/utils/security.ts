@@ -3,10 +3,13 @@
 const AUTH_FLAG_KEY = "loqui_authenticated";
 const CSRF_COOKIE_NAME = "csrf_token";
 
-/** In dev, default to the Vite `/api` proxy so CSRF cookies stay same-origin. */
-export const API_BASE_URL =
-  import.meta.env.VITE_API_URL ??
-  (import.meta.env.DEV ? "/api" : "http://localhost:8000");
+/**
+ * API base URL for all backend requests.
+ *
+ * Always use `/api` so requests stay same-origin (Vite proxy locally, Vercel rewrite in prod).
+ * Auth cookies and CSRF tokens only work when the browser talks to the same host as the page.
+ */
+export const API_BASE_URL = import.meta.env.VITE_API_URL || "/api";
 
 let csrfToken: string | null = null;
 
@@ -54,10 +57,15 @@ export async function initCsrfToken(): Promise<void> {
     if (response.ok) {
       const data = (await response.json()) as { csrf_token: string };
       csrfToken = data.csrf_token ?? readCsrfFromCookie();
+      if (import.meta.env.DEV) {
+        console.debug("[Loqui] CSRF token ready");
+      }
     } else {
+      console.warn("[Loqui] CSRF fetch failed:", response.status);
       csrfToken = readCsrfFromCookie();
     }
-  } catch {
+  } catch (err) {
+    console.warn("[Loqui] CSRF fetch error:", err);
     csrfToken = readCsrfFromCookie();
   }
 }
@@ -78,7 +86,7 @@ export function getCsrfHeaders(): Record<string, string> {
   return headers;
 }
 
-/** Initialize all client-side security measures. */
+/** Initialize all client-side security measures. Never throws — app must still render. */
 export async function initSecurity(): Promise<void> {
   enforceHttps();
   await initCsrfToken();
