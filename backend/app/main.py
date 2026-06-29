@@ -44,6 +44,7 @@ app.add_middleware(CORSMiddleware,
     allow_credentials=True,
     allow_methods=["GET", "POST", "DELETE", "OPTIONS"],
     allow_headers=["*"],
+    allow_methods=["*"],
 )
 app.add_middleware(SecurityHeadersMiddleware)
 app.add_middleware(CsrfMiddleware)
