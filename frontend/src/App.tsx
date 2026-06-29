@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import ProtectedRoute from "./components/ProtectedRoute";
-import { AuthProvider, useAuth } from "./hooks/useAuth";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import { AuthProvider } from "@/context/AuthProvider";
+import { useAuth } from "@/hooks/useAuth";
 import ChallengesHub from "./pages/ChallengesHub";
 import Dashboard from "./pages/Dashboard";
 import FeedbackResults from "./pages/FeedbackResults";

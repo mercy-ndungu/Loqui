@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { generateRandomTopic, uploadChallengeRecording } from "../api/challenges";
-import LoadingSpinner from "../components/LoadingSpinner";
-import { formatTimer, useMediaRecorder } from "../hooks/useMediaRecorder";
-import type { ChallengeUploadResponse } from "../types/api";
+import { generateRandomTopic, uploadChallengeRecording } from "@/services/challenges";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
+import { formatTimer, useMediaRecorder } from "@/hooks/useMediaRecorder";
+import type { ChallengeUploadResponse } from "@/types";
 
 function InlineFeedback({
   result,

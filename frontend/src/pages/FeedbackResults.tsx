@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getFeedback } from "../api/feedback";
-import LoadingSpinner from "../components/LoadingSpinner";
-import type { FeedbackResponse } from "../types/api";
+import { getFeedback } from "@/services/feedback";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
+import type { FeedbackResponse } from "@/types";
 import { sanitizeText } from "../utils/sanitize";
 
 interface FeedbackResultsProps {

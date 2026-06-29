@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { analyzeFeedback } from "../api/feedback";
-import { getPresentation } from "../api/presentations";
-import { uploadRecording } from "../api/recordings";
-import LoadingSpinner from "../components/LoadingSpinner";
-import type { PresentationDetail } from "../types/api";
+import { analyzeFeedback } from "@/services/feedback";
+import { getPresentation } from "@/services/presentations";
+import { uploadRecording } from "@/services/recordings";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
+import type { PresentationDetail } from "@/types";
 
 type RecordingState = "idle" | "recording" | "preview" | "uploading";
 

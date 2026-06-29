@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 import { initSecurity } from "./utils/security";
-import { registerServiceWorker } from "./serviceWorker";
+import { registerServiceWorker } from "@/lib/serviceWorker";
 
 async function bootstrap() {
   await initSecurity();

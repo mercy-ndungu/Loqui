@@ -1,14 +1,14 @@
 import { type ChangeEvent, type DragEvent, useCallback, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { listChallenges } from "../api/challenges";
+import { listChallenges } from "@/services/challenges";
 import {
   deletePresentation,
   listPresentations,
   uploadPresentation,
-} from "../api/presentations";
-import LoadingSpinner from "../components/LoadingSpinner";
-import { useAuth } from "../hooks/useAuth";
-import type { ChallengeSummary, Presentation, PresentationType } from "../types/api";
+} from "@/services/presentations";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
+import { useAuth } from "@/hooks/useAuth";
+import type { ChallengeSummary, Presentation, PresentationType } from "@/types";
 import { formatDate, isAllowedPresentationFile } from "../utils/validation";
 
 interface DashboardProps {

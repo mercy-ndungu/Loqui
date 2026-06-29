@@ -1,8 +1,8 @@
 import { type ChangeEvent, type DragEvent, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getPresentation } from "../api/presentations";
-import LoadingSpinner from "../components/LoadingSpinner";
-import type { PresentationDetail, PresentationType } from "../types/api";
+import { getPresentation } from "@/services/presentations";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
+import type { PresentationDetail, PresentationType } from "@/types";
 import { formatDate, formatFileSize, isAllowedPresentationFile } from "../utils/validation";
 
 const TYPES: { value: PresentationType; label: string }[] = [

@@ -1,10 +1,10 @@
 import { type FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { login, signup } from "../api/auth";
-import { getMe } from "../api/users";
-import LoadingSpinner from "../components/LoadingSpinner";
-import { useAuth } from "../hooks/useAuth";
+import { login, signup } from "@/services/auth";
+import { getMe } from "@/services/users";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
+import { useAuth } from "@/hooks/useAuth";
 import { sanitizeInput } from "../utils/sanitize";
 import {
   getPasswordErrors,
